@@ -2,7 +2,8 @@ package com.expenses;
 
 import java.time.LocalDate;
 
-public class Expense {
+public class Expense 
+{
 
     private int id;
     private String title;
@@ -12,7 +13,8 @@ public class Expense {
     private String note;
 
     // Constructor
-    public Expense(int id, String title, String category, double amount, LocalDate date, String note) {
+    public Expense(int id, String title, String category, double amount, LocalDate date, String note) 
+    {
         this.id = id;
         this.title = title;
         this.category = category;
