@@ -10,41 +10,49 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
-public class ExpenseService {
+public class ExpenseService 
+{
 
     // In-memory list to store expenses (no database needed)
     private List<Expense> expenses = new ArrayList<>();
     private int nextId = 1;
 
     // ---- ADD EXPENSE ----
-    public Expense addExpense(String title, String category, double amount, LocalDate date, String note) {
+    public Expense addExpense(String title, String category, double amount, LocalDate date, String note) 
+    {
         Expense expense = new Expense(nextId++, title, category, amount, date, note);
         expenses.add(expense);
         return expense;
     }
 
     // ---- GET ALL EXPENSES ----
-    public List<Expense> getAllExpenses() {
+    public List<Expense> getAllExpenses() 
+    {
         return expenses;
     }
 
     // ---- GET EXPENSE BY ID ----
-    public Expense getExpenseById(int id) {
-        for (Expense e : expenses) {
+    public Expense getExpenseById(int id) 
+    {
+        for (Expense e : expenses) 
+        {
             if (e.getId() == id) return e;
         }
         return null;
     }
 
     // ---- DELETE EXPENSE ----
-    public boolean deleteExpense(int id) {
+    public boolean deleteExpense(int id) 
+    {
         return expenses.removeIf(e -> e.getId() == id);
     }
 
     // ---- MODIFY/UPDATE EXPENSE ----
-    public Expense updateExpense(int id, String title, String category, double amount, LocalDate date, String note) {
+    public Expense updateExpense(int id, String title, String category, double amount, LocalDate date, String note) 
+    {
         Expense expense = getExpenseById(id);
-        if (expense != null) {
+        if (expense != null) 
+        {
             expense.setTitle(title);
             expense.setCategory(category);
             expense.setAmount(amount);
@@ -55,16 +63,19 @@ public class ExpenseService {
     }
 
     // ---- TOTAL - ALL TIME ----
-    public double getTotalAll() {
+    public double getTotalAll() 
+    {
         double total = 0;
-        for (Expense e : expenses) {
+        for (Expense e : expenses) 
+        {
             total += e.getAmount();
         }
         return total;
     }
 
     // ---- TOTAL - WEEKLY (current week) ----
-    public double getTotalWeekly() {
+    public double getTotalWeekly() 
+    {
         LocalDate today = LocalDate.now();
         WeekFields weekFields = WeekFields.of(Locale.getDefault());
         int currentWeek = today.get(weekFields.weekOfWeekBasedYear());
@@ -81,7 +92,8 @@ public class ExpenseService {
     }
 
     // ---- TOTAL - MONTHLY (current month) ----
-    public double getTotalMonthly() {
+    public double getTotalMonthly() 
+    {
         LocalDate today = LocalDate.now();
         return expenses.stream()
             .filter(e -> e.getDate().getMonth() == today.getMonth()
@@ -91,7 +103,8 @@ public class ExpenseService {
     }
 
     // ---- TOTAL - YEARLY (current year) ----
-    public double getTotalYearly() {
+    public double getTotalYearly() 
+    {
         int currentYear = LocalDate.now().getYear();
         return expenses.stream()
             .filter(e -> e.getDate().getYear() == currentYear)
@@ -100,7 +113,8 @@ public class ExpenseService {
     }
 
     // ---- FILTER BY CATEGORY ----
-    public List<Expense> getByCategory(String category) {
+    public List<Expense> getByCategory(String category) 
+    {
         return expenses.stream()
             .filter(e -> e.getCategory().equalsIgnoreCase(category))
             .collect(Collectors.toList());
