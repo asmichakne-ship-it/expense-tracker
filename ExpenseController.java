@@ -18,19 +18,22 @@ public class ExpenseController {
 
     // GET all expenses
     @GetMapping
-    public List<Expense> getAllExpenses() {
+    public List<Expense> getAllExpenses() 
+    {
         return expenseService.getAllExpenses();
     }
 
     // GET single expense by ID
     @GetMapping("/{id}")
-    public Expense getExpenseById(@PathVariable int id) {
+    public Expense getExpenseById(@PathVariable int id) 
+    {
         return expenseService.getExpenseById(id);
     }
 
     // POST - add new expense
     @PostMapping
-    public Expense addExpense(@RequestBody Map<String, String> body) {
+    public Expense addExpense(@RequestBody Map<String, String> body) 
+    {
         String title    = body.get("title");
         String category = body.get("category");
         double amount   = Double.parseDouble(body.get("amount"));
@@ -41,7 +44,8 @@ public class ExpenseController {
 
     // PUT - update/modify expense
     @PutMapping("/{id}")
-    public Expense updateExpense(@PathVariable int id, @RequestBody Map<String, String> body) {
+    public Expense updateExpense(@PathVariable int id, @RequestBody Map<String, String> body) 
+    {
         String title    = body.get("title");
         String category = body.get("category");
         double amount   = Double.parseDouble(body.get("amount"));
@@ -52,7 +56,8 @@ public class ExpenseController {
 
     // DELETE - remove an expense
     @DeleteMapping("/{id}")
-    public Map<String, String> deleteExpense(@PathVariable int id) {
+    public Map<String, String> deleteExpense(@PathVariable int id) 
+    {
         boolean deleted = expenseService.deleteExpense(id);
         Map<String, String> response = new HashMap<>();
         response.put("message", deleted ? "Expense deleted successfully!" : "Expense not found.");
@@ -61,7 +66,8 @@ public class ExpenseController {
 
     // GET totals summary
     @GetMapping("/summary")
-    public Map<String, Double> getSummary() {
+    public Map<String, Double> getSummary() 
+    {
         Map<String, Double> summary = new HashMap<>();
         summary.put("weekly",  expenseService.getTotalWeekly());
         summary.put("monthly", expenseService.getTotalMonthly());
@@ -72,7 +78,8 @@ public class ExpenseController {
 
     // GET by category
     @GetMapping("/category/{category}")
-    public List<Expense> getByCategory(@PathVariable String category) {
+    public List<Expense> getByCategory(@PathVariable String category) 
+    {
         return expenseService.getByCategory(category);
     }
 }
